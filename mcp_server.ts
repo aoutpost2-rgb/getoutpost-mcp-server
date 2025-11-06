@@ -106,7 +106,7 @@ app.post('/mcp', async (req: Request, res: Response) => {
 });
 
 export const startServer = () => {
-  const port = parseInt(process.env.PORT || '8000');
+  const port = parseInt(process.env.PORT || '8019');
   const server = app.listen(port, '0.0.0.0', () => {
     console.log(`GetOutpost MCP Server running on port ${port}`);
   });

@@ -38,7 +38,7 @@ export class ToolDefinition implements ToolDefinitionInterface {
     return {
       name: this.name,
       description: this.description,
-      input_schema: this.inputSchema
+      inputSchema: this.inputSchema  // ✅ FIXED: Changed from input_schema
     };
   }
 }
@@ -54,26 +54,27 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get IV data for"
-        },
-        "daysToExpiry": {
-          type: "number",
-          description: "Number of days to expiry"
+          description: "List of symbols to get IV data for (minimum 1 symbol required)"
         },
         moneyness: {
           type: "number",
-          description: "Moneyness parameter"
+          description: "Moneyness parameter (required)"
         },
-        "realizedVolatility": {
-          type: "string",
-          description: "Type of realized volatility calculation"
+        daysToExpiry: {
+          type: "integer",
+          description: "Number of days to expiry (must be a positive integer)"
         },
-        "lookbackPeriod": {
+        realizedVolatility: {
           type: "string",
-          description: "Lookback period for calculation"
+          enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
+          description: "Type of realized volatility calculation: c2c (Close-To-Close), parkinson (Parkinson), garman_klass (Garman-Klass), rogers_satchell (Rogers-Satchell), yang_zhang (Yang-Zhang), mean (Mean)"
+        },
+        lookbackPeriod: {
+          type: "string",
+          description: "Lookback period for calculation (required)"
         }
       },
-      required: ["symbols"]
+      required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
     }
   ),
   new ToolDefinition(
@@ -85,7 +86,7 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get VOL data for"
+          description: "List of symbols to get VOL data for (minimum 1 symbol required)"
         }
       },
       required: ["symbols"]
@@ -100,26 +101,27 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get VRP data for"
+          description: "List of symbols to get VRP data for (minimum 1 symbol required)"
         },
         moneyness: {
           type: "number",
-          description: "Moneyness parameter"
+          description: "Moneyness parameter (required)"
         },
-        "daysToExpiry": {
-          type: "number",
-          description: "Number of days to expiry"
+        daysToExpiry: {
+          type: "integer",
+          description: "Number of days to expiry (must be a positive integer)"
         },
-        "realizedVolatility": {
+        realizedVolatility: {
           type: "string",
-          description: "Type of realized volatility calculation"
+          enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
+          description: "Type of realized volatility calculation: c2c (Close-To-Close), parkinson (Parkinson), garman_klass (Garman-Klass), rogers_satchell (Rogers-Satchell), yang_zhang (Yang-Zhang), mean (Mean)"
         },
-        "lookbackPeriod": {
+        lookbackPeriod: {
           type: "string",
-          description: "Lookback period for calculation"
+          description: "Lookback period for calculation (required)"
         }
       },
-      required: ["symbols"]
+      required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
     }
   ),
   new ToolDefinition(
@@ -131,26 +133,27 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get skew data for"
+          description: "List of symbols to get skew data for (minimum 1 symbol required)"
         },
         moneyness: {
           type: "number",
-          description: "Moneyness parameter"
+          description: "Moneyness parameter (required)"
         },
-        "daysToExpiry": {
-          type: "number",
-          description: "Number of days to expiry"
+        daysToExpiry: {
+          type: "integer",
+          description: "Number of days to expiry (must be a positive integer)"
         },
-        "realizedVolatility": {
+        realizedVolatility: {
           type: "string",
-          description: "Type of realized volatility calculation"
+          enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
+          description: "Type of realized volatility calculation: c2c (Close-To-Close), parkinson (Parkinson), garman_klass (Garman-Klass), rogers_satchell (Rogers-Satchell), yang_zhang (Yang-Zhang), mean (Mean)"
         },
-        "lookbackPeriod": {
+        lookbackPeriod: {
           type: "string",
-          description: "Lookback period for calculation"
+          description: "Lookback period for calculation (required)"
         }
       },
-      required: ["symbols"]
+      required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
     }
   )
 ];
