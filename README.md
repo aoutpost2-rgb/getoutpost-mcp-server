@@ -1,6 +1,6 @@
-# GetOutpost MCP Server (TypeScript)
+# GetOutpost MCP Server
 
-MCP (Model Context Protocol) Server for GetOutpost Financial APIs, ported from Python to TypeScript.
+MCP (Model Context Protocol) STDIO Server for GetOutpost Financial APIs.
 
 ## Overview
 
@@ -10,7 +10,7 @@ This server provides access to financial data from GetOutpost through the Model 
 
 - MCP-compliant API for financial data access
 - Support for implied volatility (IV), volatility (VOL), volatility risk premium (VRP), and skew data
-- Token-based authentication with automatic refresh
+- Token-based (Cookie) authentication with automatic refresh
 - Health check endpoint
 
 ## Prerequisites
@@ -25,75 +25,35 @@ This server provides access to financial data from GetOutpost through the Model 
    ```bash
    npm install
    ```
+3. Build
+  ```bash
+  npm run build
+  ```
 
-## Configuration
 
-Create a `.env` file based on `.env.example`:
-```bash
-EMAIL=your-email@example.com
-PORT=8000
+### Integration with Claude Desktop
+1. Add the following to your `claude_desktop_config.json` file
+
 ```
-
-You'll also need a `tokens.json` file with your access and refresh tokens:
-```json
-{
-  "access_token": "your-access-token",
-  "refresh_token": "your-refresh-token"
+"getoutpost-mcp": {
+  "command": "node",
+  "args": [
+    "<path-to-your-repository>/dist/mcp_server_stdio.js"
+  ],
+  "env": {
+    "ACCESS_TOKEN": "<Getoutpost Access Token>",
+    "REFRESH_TOKEN": "<Getoupost Refresh Token>",
+    "API_BASE_URL" : "https://getoutpost.in",
+    "EMAIL" : "<Email used to login to Getoutpost>"
+  }
 }
 ```
 
-## Usage
+2. After this make sure to enable getoutpost-mcp in your connectors section.
 
-### Development
-```bash
-npm run dev
-```
+![alt text](image.png)
 
-### Production
-```bash
-npm run build
-npm start
-```
-
-Or use the startup script:
-```bash
-./start_server.sh
-```
-
-## API Endpoints
-
-- `GET /health` - Health check
-- `POST /iv` - Get implied volatility data
-- `POST /vol` - Get volatility data
-- `POST /vrp` - Get volatility risk premium data
-- `POST /skew` - Get skew data
-- `POST /mcp/tools/list` - List available MCP tools
-- `POST /mcp/tools/call` - Call MCP tools
-- `POST /mcp` - Main MCP endpoint
-
-## Testing
-
-Run tests:
-```bash
-npm test
-```
-
-## Project Structure
-
-```
-├── mcp_server.ts          # Main server application
-├── mcp_spec.ts           # MCP specification implementation
-├── api/
-│   └── client.ts         # API client for GetOutpost endpoints
-├── auth/
-│   └── tokens.ts         # Token management
-├── tests/
-│   ├── test_api.ts       # API endpoint tests
-│   └── test_client.ts    # API client tests
-├── package.json
-├── tsconfig.json
-└── README.md
-```
+3. You are good to go, just type out your prompts. Recommended to use Sonnet 4.5 model.
 
 ## License
 

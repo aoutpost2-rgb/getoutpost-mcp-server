@@ -24,22 +24,43 @@ export class APIManager {
     this.tokenManager = new TokenManager(this.email);
   }
 
-  private async makeRequest(endpoint: string, params: APIRequest): Promise<any> {
+  private async makeRequest(endpoint: string, params: APIRequest, retryCount = 0): Promise<any> {
     const token = await this.tokenManager.getToken();
-    
-    const response: AxiosResponse = await axios.post(
-      `${this.baseUrl}${endpoint}`,
-      params,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          'X-User-Email': this.email
+
+    try {
+      const response: AxiosResponse = await axios.post(
+        `${this.baseUrl}/__api__/data${endpoint}`,
+        params,
+        {
+          headers: {
+            'Cookie': `accessToken=${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      // Check if it's an authentication error (401 Unauthorized)
+      if (error.response && error.response.status === 401 && retryCount === 0) {
+        console.error('Authentication error detected, attempting to refresh token...');
+
+        try {
+          // Refresh the token
+          await this.tokenManager.refreshToken();
+
+          // Retry the request with the new token
+          console.error('Token refreshed, retrying request...');
+          return this.makeRequest(endpoint, params, retryCount + 1);
+        } catch (refreshError: any) {
+          console.error('Failed to refresh token:', refreshError.message);
+          throw new Error(`Authentication failed and token refresh failed: ${refreshError.message}`);
         }
       }
-    );
-    
-    return response.data;
+
+      // If it's not an auth error or we've already retried, throw the original error
+      throw error;
+    }
   }
 
   async iv(params: APIRequest): Promise<any> {
