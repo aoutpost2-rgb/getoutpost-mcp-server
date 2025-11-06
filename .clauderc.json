@@ -1,19 +1,15 @@
 {
   "mcpServers": {
     "getoutpost-mcp": {
-      "command": "uvicorn",
+      "command": "node",
       "args": [
-        "mcp_server:app",
-        "--host",
-        "127.0.0.1",
-        "--port",
-        "8000"
+        "dist/mcp_server.js"
       ],
       "env": {
         "EMAIL": "ashwinbhskr@gmail.com"
       },
       "protocol": "http",
-      "url": "http://127.0.0.1:8000/mcp"
+      "url": "http://127.0.0.1:8000"
     }
   }
 }

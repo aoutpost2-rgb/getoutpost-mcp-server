@@ -21,7 +21,7 @@ const mcpHandler = new MCPHandler(apiManager);
 
 // Initialize API manager on startup
 // Note: In a real implementation, this would be awaited properly
-apiManager.tokenManager.loadTokens().catch(error => {
+apiManager.tokenManager.loadTokens().catch((error: any) => {
   console.error('Failed to load tokens on startup:', error);
 });
 
