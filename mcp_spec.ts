@@ -54,26 +54,26 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get IV data for (minimum 1 symbol required)"
+          description: "Ticker symbols (e.g., ['NIFTY', 'BPCL'])"
         },
         moneyness: {
           type: "number",
           enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
-          description: "Moneyness level defined as log(Forward Price / Strike Price). Valid values: 0.1 (10% OTM Put), 0.05 (5% OTM Put), 0.02 (2% OTM Put), 0.01 (1% OTM Put), 0 (ATM), -0.01 (1% OTM Call), -0.02 (2% OTM Call), -0.05 (5% OTM Call), -0.1 (10% OTM Call)"
+          description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
           type: "integer",
-          description: "Number of calendar days remaining until option expiry. Calculate from today's date to the expiry date. For example, if today is November 7th and monthly expiry is November 28th, use 21 days. Must be a positive integer."
+          description: "Calendar days until option expiry (positive integer)"
         },
         realizedVolatility: {
           type: "string",
           enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
-          description: "Type of realized volatility calculation: c2c (Close-To-Close), parkinson (Parkinson), garman_klass (Garman-Klass), rogers_satchell (Rogers-Satchell), yang_zhang (Yang-Zhang), mean (Mean)"
+          description: "Realized volatility calculation method"
         },
         lookbackPeriod: {
           type: "string",
           enum: ["20", "40", "60", "80"],
-          description: "Lookback period in days for calculation. Supported values: '20', '40', '60', or '80'"
+          description: "Lookback period in days"
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
@@ -88,7 +88,7 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get VOL data for (minimum 1 symbol required)"
+          description: "Ticker symbols (e.g., ['AAPL', 'MSFT'])"
         }
       },
       required: ["symbols"]
@@ -103,26 +103,26 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get VRP data for (minimum 1 symbol required)"
+          description: "Ticker symbols (e.g., ['AAPL', 'MSFT'])"
         },
         moneyness: {
           type: "number",
           enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
-          description: "Moneyness level defined as log(Forward Price / Strike Price). Valid values: 0.1 (10% OTM Put), 0.05 (5% OTM Put), 0.02 (2% OTM Put), 0.01 (1% OTM Put), 0 (ATM), -0.01 (1% OTM Call), -0.02 (2% OTM Call), -0.05 (5% OTM Call), -0.1 (10% OTM Call)"
+          description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
           type: "integer",
-          description: "Number of calendar days remaining until option expiry. Calculate from today's date to the expiry date. For example, if today is November 7th and monthly expiry is November 28th, use 21 days. Must be a positive integer."
+          description: "Calendar days until option expiry (positive integer)"
         },
         realizedVolatility: {
           type: "string",
           enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
-          description: "Type of realized volatility calculation: c2c (Close-To-Close), parkinson (Parkinson), garman_klass (Garman-Klass), rogers_satchell (Rogers-Satchell), yang_zhang (Yang-Zhang), mean (Mean)"
+          description: "Realized volatility calculation method"
         },
         lookbackPeriod: {
           type: "string",
           enum: ["20", "40", "60", "80"],
-          description: "Lookback period in days for calculation. Supported values: '20', '40', '60', or '80'"
+          description: "Lookback period in days"
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
@@ -137,26 +137,26 @@ export const MCP_TOOLS = [
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "List of symbols to get skew data for (minimum 1 symbol required)"
+          description: "Ticker symbols (e.g., ['AAPL', 'MSFT'])"
         },
         moneyness: {
           type: "number",
           enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
-          description: "Moneyness level defined as log(Forward Price / Strike Price). Valid values: 0.1 (10% OTM Put), 0.05 (5% OTM Put), 0.02 (2% OTM Put), 0.01 (1% OTM Put), 0 (ATM), -0.01 (1% OTM Call), -0.02 (2% OTM Call), -0.05 (5% OTM Call), -0.1 (10% OTM Call)"
+          description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
           type: "integer",
-          description: "Number of calendar days remaining until option expiry. Calculate from today's date to the expiry date. For example, if today is November 7th and monthly expiry is November 28th, use 21 days. Must be a positive integer."
+          description: "Calendar days until option expiry (positive integer)"
         },
         realizedVolatility: {
           type: "string",
           enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
-          description: "Type of realized volatility calculation: c2c (Close-To-Close), parkinson (Parkinson), garman_klass (Garman-Klass), rogers_satchell (Rogers-Satchell), yang_zhang (Yang-Zhang), mean (Mean)"
+          description: "Realized volatility calculation method"
         },
         lookbackPeriod: {
           type: "string",
           enum: ["20", "40", "60", "80"],
-          description: "Lookback period in days for calculation. Supported values: '20', '40', '60', or '80'"
+          description: "Lookback period in days"
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
