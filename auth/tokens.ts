@@ -1,53 +1,74 @@
 /**
  * Token Manager for GetOutpost API Authentication
  */
-import fs from 'fs/promises';
-import path from 'path';
 import axios from 'axios';
+import { CredentialsManager } from './credentials';
 
 export class TokenManager {
-  private email: string;
-  private tokenFilePath: string;
-  private baseUrl: string;
+  private credentialsManager: CredentialsManager;
 
-  constructor(email: string) {
-    this.email = email;
-    this.tokenFilePath = path.join(process.cwd(), '.tokens', `${email.replace('@', '_').replace('.', '_')}_token.txt`);
-    this.baseUrl = process.env.API_BASE_URL || 'https://api.getoutpost.dev';
+  constructor() {
+    this.credentialsManager = CredentialsManager.getInstance();
   }
 
   async getToken(): Promise<string> {
-    // Check for token in environment first
-    if (process.env.ACCESS_TOKEN) {
-      return process.env.ACCESS_TOKEN;
-    }
-
-    // Try to load from file system
     try {
-      await fs.access(this.tokenFilePath);
-      const token = await fs.readFile(this.tokenFilePath, 'utf-8');
-      return token.trim();
-    } catch (error) {
-      console.error(`Could not load token from ${this.tokenFilePath}`);
-      throw new Error('No API token available. Please set API_TOKEN environment variable or ensure token file exists.');
+      const config = await this.credentialsManager.getConfig();
+      return config.ACCESS_TOKEN;
+    } catch (error: any) {
+      console.error(`Could not load token from credentials file: ${error.message}`);
+      throw new Error(`No API token available. Please ensure credentials file exists at ${this.credentialsManager.getCredentialsFilePath()}`);
+    }
+  }
+
+  async getBaseUrl(): Promise<string> {
+    try {
+      const config = await this.credentialsManager.getConfig();
+      return config.API_BASE_URL;
+    } catch (error: any) {
+      console.error(`Could not load base URL from credentials file: ${error.message}`);
+      throw new Error(`No API base URL available. Please ensure credentials file exists at ${this.credentialsManager.getCredentialsFilePath()}`);
+    }
+  }
+
+  async getEmail(): Promise<string> {
+    try {
+      const config = await this.credentialsManager.getConfig();
+      return config.EMAIL;
+    } catch (error: any) {
+      console.error(`Could not load email from credentials file: ${error.message}`);
+      throw new Error(`No email available. Please ensure credentials file exists at ${this.credentialsManager.getCredentialsFilePath()}`);
     }
   }
 
   async refreshToken(): Promise<{ accessToken: string; refreshToken: string }> {
-    const refreshToken = process.env.REFRESH_TOKEN;
-    const email = process.env.EMAIL || this.email;
+    // Load configuration from file
+    let config;
+    try {
+      config = await this.credentialsManager.getConfig();
+    } catch (error: any) {
+      throw new Error(`Cannot refresh token: ${error.message}`);
+    }
+
+    const refreshToken = config.REFRESH_TOKEN;
+    const email = config.EMAIL;
+    const baseUrl = config.API_BASE_URL;
 
     if (!refreshToken) {
-      throw new Error('REFRESH_TOKEN environment variable is not set');
+      throw new Error('REFRESH_TOKEN not found in credentials file');
     }
 
     if (!email) {
-      throw new Error('EMAIL environment variable is not set');
+      throw new Error('EMAIL not found in credentials file');
+    }
+
+    if (!baseUrl) {
+      throw new Error('API_BASE_URL not found in credentials file');
     }
 
     try {
       const response = await axios.post(
-        `${this.baseUrl}/__api__/auth/refresh`,
+        `${baseUrl}/__api__/auth/refresh`,
         { email },
         {
           headers: {
@@ -78,11 +99,10 @@ export class TokenManager {
         throw new Error('Could not extract tokens from Set-Cookie headers');
       }
 
-      // Update environment variables
-      process.env.ACCESS_TOKEN = newAccessToken;
-      process.env.REFRESH_TOKEN = newRefreshToken;
+      // Update tokens in credentials file
+      await this.credentialsManager.updateTokens(newAccessToken, newRefreshToken);
 
-      console.error('Successfully refreshed tokens');
+      console.error('Successfully refreshed tokens and saved to credentials file');
 
       return {
         accessToken: newAccessToken,

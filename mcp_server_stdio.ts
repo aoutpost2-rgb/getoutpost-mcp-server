@@ -16,9 +16,8 @@ import { MCPHandler, MCP_TOOLS } from './mcp_spec.js';
 // Load environment variables
 dotenv.config();
 
-// Initialize API manager with email
-const email = process.env.EMAIL || 'ashwinbhskr@gmail.com';
-const apiManager = new APIManager(email);
+// Initialize API manager (reads configuration from credentials file)
+const apiManager = new APIManager();
 const mcpHandler = new MCPHandler(apiManager);
 
 // Create MCP server

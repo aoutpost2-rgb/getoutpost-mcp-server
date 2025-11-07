@@ -7,7 +7,7 @@ describe('APIManager', () => {
   let apiManager: APIManager;
 
   beforeEach(() => {
-    apiManager = new APIManager('test@example.com');
+    apiManager = new APIManager();
   });
 
   it('should initialize correctly', () => {
