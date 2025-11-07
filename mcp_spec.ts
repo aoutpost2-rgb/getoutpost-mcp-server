@@ -58,7 +58,8 @@ export const MCP_TOOLS = [
         },
         moneyness: {
           type: "number",
-          description: "Moneyness parameter (required)"
+          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          description: "Moneyness level defined as log(Forward Price / Strike Price). Valid values: 0.1 (10% OTM Put), 0.05 (5% OTM Put), 0.02 (2% OTM Put), 0.01 (1% OTM Put), 0 (ATM), -0.01 (1% OTM Call), -0.02 (2% OTM Call), -0.05 (5% OTM Call), -0.1 (10% OTM Call)"
         },
         daysToExpiry: {
           type: "integer",
@@ -106,7 +107,8 @@ export const MCP_TOOLS = [
         },
         moneyness: {
           type: "number",
-          description: "Moneyness parameter (required)"
+          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          description: "Moneyness level defined as log(Forward Price / Strike Price). Valid values: 0.1 (10% OTM Put), 0.05 (5% OTM Put), 0.02 (2% OTM Put), 0.01 (1% OTM Put), 0 (ATM), -0.01 (1% OTM Call), -0.02 (2% OTM Call), -0.05 (5% OTM Call), -0.1 (10% OTM Call)"
         },
         daysToExpiry: {
           type: "integer",
@@ -139,7 +141,8 @@ export const MCP_TOOLS = [
         },
         moneyness: {
           type: "number",
-          description: "Moneyness parameter (required)"
+          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          description: "Moneyness level defined as log(Forward Price / Strike Price). Valid values: 0.1 (10% OTM Put), 0.05 (5% OTM Put), 0.02 (2% OTM Put), 0.01 (1% OTM Put), 0 (ATM), -0.01 (1% OTM Call), -0.02 (2% OTM Call), -0.05 (5% OTM Call), -0.1 (10% OTM Call)"
         },
         daysToExpiry: {
           type: "integer",
