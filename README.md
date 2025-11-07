@@ -51,13 +51,17 @@ Create a credentials file (e.g., `~/.getoutpost_credentials.json`) with your Get
 Add the following to your `claude_desktop_config.json` file:
 
 ```json
-"getoutpost-mcp": {
-  "command": "node",
-  "args": [
-    "<path-to-your-repository>/dist/mcp_server_stdio.js"
-  ],
-  "env": {
-    "CREDENTIALS_FILE_PATH": "/absolute/path/to/.getoutpost_credentials.json"
+{
+  "mcpServers" : {
+    "getoutpost-mcp": {
+      "command": "node",
+      "args": [
+        "<path-to-your-repository>/dist/mcp_server_stdio.js"
+      ],
+      "env": {
+        "CREDENTIALS_FILE_PATH": "/absolute/path/to/.getoutpost_credentials.json"
+      }
+    }
   }
 }
 ```
@@ -108,5 +112,7 @@ Workflow:
 
 Remember: Never speculate without data. If you need additional information to provide accurate analysis, request it or retrieve it using the available tools.
 ```
-4. Please use model `Claude Sonnet 4.5`
-5. You are good to go, just type out your prompts.
+4. Please use model `Claude Sonnet 4.5`.
+5. Avoid long conversations in a single chat because you run the risk of reaching the context length and might cause the LLM to give faulty answers.
+6. Use new chats (in project `Options Trading`) when you want to start a conversation about a new symbol or a an entirely different topic.
+7. You are good to go, just type out your prompts.
