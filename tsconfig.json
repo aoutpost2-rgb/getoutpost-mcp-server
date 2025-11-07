@@ -25,9 +25,10 @@
   "include": [
     "mcp_server.ts",
     "mcp_server_stdio.ts",
-    "mcp_spec.ts", 
+    "mcp_spec.ts",
     "api/client.ts",
     "auth/tokens.ts",
+    "auth/credentials.ts",
     "utils/**/*",
     "tests/**/*"
   ],
