@@ -14,9 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// Initialize API manager with email
-const email = process.env.EMAIL || 'ashwinbhskr@gmail.com';
-const apiManager = new APIManager(email);
+// Initialize API manager (reads configuration from credentials file)
+const apiManager = new APIManager();
 const mcpHandler = new MCPHandler(apiManager);
 
 // Initialize API manager on startup

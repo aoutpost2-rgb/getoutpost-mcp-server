@@ -62,7 +62,7 @@ export const MCP_TOOLS = [
         },
         daysToExpiry: {
           type: "integer",
-          description: "Number of days to expiry (must be a positive integer)"
+          description: "Number of calendar days remaining until option expiry. Calculate from today's date to the expiry date. For example, if today is November 7th and monthly expiry is November 28th, use 21 days. Must be a positive integer."
         },
         realizedVolatility: {
           type: "string",
@@ -71,7 +71,8 @@ export const MCP_TOOLS = [
         },
         lookbackPeriod: {
           type: "string",
-          description: "Lookback period for calculation (required)"
+          enum: ["20", "40", "60", "80"],
+          description: "Lookback period in days for calculation. Supported values: '20', '40', '60', or '80'"
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
@@ -109,7 +110,7 @@ export const MCP_TOOLS = [
         },
         daysToExpiry: {
           type: "integer",
-          description: "Number of days to expiry (must be a positive integer)"
+          description: "Number of calendar days remaining until option expiry. Calculate from today's date to the expiry date. For example, if today is November 7th and monthly expiry is November 28th, use 21 days. Must be a positive integer."
         },
         realizedVolatility: {
           type: "string",
@@ -118,7 +119,8 @@ export const MCP_TOOLS = [
         },
         lookbackPeriod: {
           type: "string",
-          description: "Lookback period for calculation (required)"
+          enum: ["20", "40", "60", "80"],
+          description: "Lookback period in days for calculation. Supported values: '20', '40', '60', or '80'"
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
@@ -141,7 +143,7 @@ export const MCP_TOOLS = [
         },
         daysToExpiry: {
           type: "integer",
-          description: "Number of days to expiry (must be a positive integer)"
+          description: "Number of calendar days remaining until option expiry. Calculate from today's date to the expiry date. For example, if today is November 7th and monthly expiry is November 28th, use 21 days. Must be a positive integer."
         },
         realizedVolatility: {
           type: "string",
@@ -150,7 +152,8 @@ export const MCP_TOOLS = [
         },
         lookbackPeriod: {
           type: "string",
-          description: "Lookback period for calculation (required)"
+          enum: ["20", "40", "60", "80"],
+          description: "Lookback period in days for calculation. Supported values: '20', '40', '60', or '80'"
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]

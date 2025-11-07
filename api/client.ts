@@ -15,21 +15,18 @@ export interface APIRequest {
 
 export class APIManager {
   public tokenManager: TokenManager;
-  private baseUrl: string;
-  private email: string;
 
-  constructor(email: string) {
-    this.baseUrl = process.env.API_BASE_URL || 'https://api.getoutpost.dev';
-    this.email = email;
-    this.tokenManager = new TokenManager(this.email);
+  constructor() {
+    this.tokenManager = new TokenManager();
   }
 
   private async makeRequest(endpoint: string, params: APIRequest, retryCount = 0): Promise<any> {
     const token = await this.tokenManager.getToken();
+    const baseUrl = await this.tokenManager.getBaseUrl();
 
     try {
       const response: AxiosResponse = await axios.post(
-        `${this.baseUrl}/__api__/data${endpoint}`,
+        `${baseUrl}/__api__/data${endpoint}`,
         params,
         {
           headers: {
