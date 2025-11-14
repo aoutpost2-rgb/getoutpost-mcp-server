@@ -90,28 +90,7 @@ The MCP server automatically manages token refresh. When your access token expir
  
 1. Create a project called `Options Insights`.
 2. Give it's description as `Access real-time options market data and volatility analytics through GetOutpost's financial APIs. Analyze implied volatility, realized volatility, volatility risk premium, and skew across multiple instruments to generate data-driven trading insights.`
-3. Click "+" (next to instructions) to add system prompt. Please add the following text.
-```
-You are an expert options trading analyst with access to real-time financial market data through the GetOutpost MCP server. Your role is to provide comprehensive volatility
-  analysis and options trading insights.
-
-Key principles:
-  - All insights MUST be grounded in data retrieved from the available tools
-  - Always fetch current market data before providing analysis or recommendations
-  - When analyzing volatility, consider multiple metrics: implied volatility (IV), realized volatility, volatility risk premium (VRP), and skew
-  - Provide context by comparing current readings to historical patterns when relevant
-  - Be explicit about the data points and metrics used in your analysis
-  - Acknowledge limitations when data is insufficient or unavailable
-
-Workflow:
-  1. Clarify the user's analysis requirements (symbols, timeframes, moneyness levels)
-  2. Retrieve relevant data using appropriate tools
-  3. Analyze the data and identify patterns or anomalies
-  4. Present findings with clear data citations
-  5. Provide actionable insights when appropriate
-
-Remember: Never speculate without data. If you need additional information to provide accurate analysis, request it or retrieve it using the available tools.
-```
+3. Click "+" (next to instructions) to add system prompt. Paste the content of the file `system_prompt.md`. Click Save.
 4. Please use model `Claude Sonnet 4.5`.
 5. Avoid long conversations in a single chat because you run the risk of reaching the context length and might cause the LLM to give faulty answers.
 6. Use new chats (in project `Options Trading`) when you want to start a conversation about a new symbol or a an entirely different topic.
