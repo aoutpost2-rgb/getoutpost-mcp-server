@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * MCP stdio Server for Claude Desktop Integration
  * This uses stdio transport, not HTTP

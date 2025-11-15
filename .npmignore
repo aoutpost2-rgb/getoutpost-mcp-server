@@ -1,0 +1,51 @@
+# Source files
+*.ts
+!*.d.ts
+tsconfig.json
+
+# Development files
+.claude/
+tests/
+*.test.js
+*.spec.js
+jest.config.js
+
+# Credentials and sensitive files
+.getoutpost_credentials.json
+.env
+.env.*
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Images and screenshots
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Source directories (not dist/)
+/auth/
+/api/
+/mcp_server.ts
+/mcp_server_stdio.ts
+/mcp_spec.ts
+/system_prompt.md
+/utils/
