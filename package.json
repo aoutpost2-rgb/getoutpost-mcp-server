@@ -1,19 +1,34 @@
 {
   "name": "getoutpost-mcp-server",
-  "version": "0.1.0",
-  "description": "MCP Server for GetOutpost Financial APIs",
+  "version": "2.1.0",
+  "description": "HTTP MCP Server for GetOutpost Financial APIs - provides stock data, options chains, and volatility surface analysis",
   "main": "dist/mcp_server.js",
+  "bin": {
+    "getoutpost-mcp-http": "./dist/mcp_server.js",
+    "getoutpost-mcp-stdio": "./dist/mcp_server_stdio.js"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
-    "start": "node dist/mcp_server_stdio.js",
-    "dev": "ts-node mcp_server_stdio.ts",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/mcp_server.js",
+    "start:stdio": "node dist/mcp_server_stdio.js",
+    "dev": "ts-node mcp_server.ts",
+    "dev:stdio": "ts-node mcp_server_stdio.ts",
     "test": "jest",
     "lint": "eslint src/**/*.ts"
   },
   "keywords": [
     "mcp",
     "financial",
-    "api"
+    "api",
+    "getoutpost",
+    "options",
+    "volatility"
   ],
   "author": "Ashwin <ashwinbhskr@gmail.com>",
   "license": "MIT",

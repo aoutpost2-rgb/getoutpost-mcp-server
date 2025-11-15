@@ -25,6 +25,7 @@ export class CredentialsManager {
       '.getoutpost_credentials.json'
     );
     this.credentialsFilePath = process.env.CREDENTIALS_FILE_PATH || defaultPath;
+    console.error("credentialsFilePath = ", this.credentialsFilePath)
   }
 
   /**
