@@ -71,8 +71,8 @@ export const MCP_TOOLS = [
           description: "Realized volatility calculation method"
         },
         lookbackPeriod: {
-          type: "string",
-          enum: ["20", "40", "60", "80"],
+          type: "number",
+          enum: [20, 40, 60, 80],
           description: "Lookback period in days"
         }
       },
@@ -120,8 +120,8 @@ export const MCP_TOOLS = [
           description: "Realized volatility calculation method"
         },
         lookbackPeriod: {
-          type: "string",
-          enum: ["20", "40", "60", "80"],
+          type: "number",
+          enum: [20, 40, 60, 80],
           description: "Lookback period in days"
         }
       },
@@ -154,8 +154,8 @@ export const MCP_TOOLS = [
           description: "Realized volatility calculation method"
         },
         lookbackPeriod: {
-          type: "string",
-          enum: ["20", "40", "60", "80"],
+          type: "number",
+          enum: [20, 40, 60, 80],
           description: "Lookback period in days"
         }
       },
