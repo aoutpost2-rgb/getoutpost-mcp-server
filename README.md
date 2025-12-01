@@ -16,18 +16,6 @@ This MCP server enables Claude to analyze options market data including:
 
 Perfect for quantitative analysis, options trading research, and data-driven trading insights on Indian markets (NSE, BSE).
 
-## Features
-
-**8 Specialized Tools** - Filter symbols by percentile criteria and fetch detailed volatility metrics
-
-**4 Pre-built Prompts** - Quick-start templates for common trading strategies
-
-**Cross-Platform** - Works on Windows, macOS, and Linux
-
-**Comprehensive Data** - Multiple volatility calculation methods and moneyness levels
-
-**One-Click Install** - Available in Claude Desktop's extension marketplace
-
 ## Installation
 
 ### Option 1: Claude Desktop Extension Marketplace (Recommended)
