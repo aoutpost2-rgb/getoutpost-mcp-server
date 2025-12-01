@@ -64,7 +64,7 @@ Then configure:
 ## Getting GetOutpost Credentials
 
 1. **Sign up** at [GetOutpost.in](https://getoutpost.in)
-2. **Log in** and obtain your access token and refresh token from your account settings
+2. **Log in** and obtain your access token and refresh token from dev tools.
 3. **Create a credentials file** at `~/.getoutpost_credentials.json`:
 
 ```json
