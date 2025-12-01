@@ -1,143 +1,57 @@
 # GetOutpost MCP Server
 
-MCP (Model Context Protocol) Server for GetOutpost Financial APIs. Available in both HTTP and stdio transport modes.
+[![MCP](https://img.shields.io/badge/MCP-Compatible-blue)](https://modelcontextprotocol.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen)](https://nodejs.org)
 
-## Overview
+A Model Context Protocol (MCP) server that brings real-time Indian options market data and volatility analytics to Claude Desktop. Access comprehensive financial data from [GetOutpost.in](https://getoutpost.in) directly within your AI conversations.
 
-This server provides access to financial data from GetOutpost through the Model Context Protocol (MCP), allowing AI assistants like Claude to interact with financial APIs.
+## What is this?
+
+This MCP server enables Claude to analyze options market data including:
+- **Implied Volatility (IV)** - Options pricing and market expectations
+- **Realized Volatility (RV)** - Historical price movement metrics (Close-to-Close, Parkinson, Garman-Klass, Rogers-Satchell, Yang-Zhang)
+- **Volatility Risk Premium (VRP)** -  IV divided by RV
+- **Skew Analysis** - Volatility smile/smirk patterns across strike prices
+
+Perfect for quantitative analysis, options trading research, and data-driven trading insights on Indian markets (NSE, BSE).
 
 ## Features
 
-- MCP-compliant API for financial data access
-- Support for implied volatility (IV), volatility (VOL), volatility risk premium (VRP), and skew data
-- Token-based (Cookie) authentication with automatic refresh
-- Health check endpoint
+**8 Specialized Tools** - Filter symbols by percentile criteria and fetch detailed volatility metrics
 
-## Prerequisites
+**4 Pre-built Prompts** - Quick-start templates for common trading strategies
 
-- Node.js 18+
-- npm or yarn
+**Cross-Platform** - Works on Windows, macOS, and Linux
+
+**Comprehensive Data** - Multiple volatility calculation methods and moneyness levels
+
+**One-Click Install** - Available in Claude Desktop's extension marketplace
 
 ## Installation
 
-### From npm
+### Option 1: Claude Desktop Extension Marketplace (Recommended)
+
+1. Open **Claude Desktop**
+2. Go to **Settings** → **Extensions**
+3. Search for **"GetOutpost Financial Data"**
+4. Click **Install**
+5. Configure your credentials file path when prompted
+
+### Option 2: Manual Installation
+
+Install globally:
 
 ```bash
 npm install -g getoutpost-mcp-server
 ```
 
-### From source
-
-1. Clone this repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Build:
-   ```bash
-   npm run build
-   ```
-
-## Setup with MCP HTTP Server
-
-The HTTP server allows you to run the MCP server as a standalone service that Claude Desktop can connect to via HTTP.
-
-### Step 1: Create Credentials File
-
-Create a credentials file (e.g., `~/.getoutpost_credentials.json`) with your GetOutpost credentials:
-
-```json
-{
-  "ACCESS_TOKEN": "your_access_token_here",
-  "REFRESH_TOKEN": "your_refresh_token_here",
-  "API_BASE_URL": "https://getoutpost.in",
-  "EMAIL": "your_email@example.com"
-}
-```
-
-### Step 2: Configure Environment Variables
-
-Create a `.env` file in your project directory (if running from source) or in the directory where you'll run the server:
-
-```env
-CREDENTIALS_FILE_PATH=/absolute/path/to/.getoutpost_credentials.json
-PORT=8019
-```
-
-### Step 3: Start the HTTP Server
-
-```bash
-# If installed globally
-export CREDENTIALS_FILE_PATH=<absolute-path-to-your-credentials-json-file> && getoutpost-mcp-http
-
-# Or if running from source
-node dist/mcp_server.js
-```
-
-The server will start on `http://localhost:8019`.
-
-### Step 4: Configure Claude Desktop
-
-Add the following to your `claude_desktop_config.json` file:
+Then configure:
 
 ```json
 {
   "mcpServers": {
-    "getoutpost-mcp": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "http://localhost:8019/mcp"]
-    }
-  }
-}
-```
-
-**Note:** The HTTP server must be running before starting Claude Desktop.
-
-### Step 5: Enable MCP Server
-
-Restart Claude Desktop and enable getoutpost-mcp in your connectors section.
-
-## Setup with MCP stdio Server
-
-The stdio server allows Claude Desktop to communicate directly with the MCP server via standard input/output.
-
-### Step 1: Create Credentials File
-
-Create a credentials file (e.g., `~/.getoutpost_credentials.json`) with your GetOutpost credentials:
-
-```json
-{
-  "ACCESS_TOKEN": "your_access_token_here",
-  "REFRESH_TOKEN": "your_refresh_token_here",
-  "API_BASE_URL": "https://getoutpost.in",
-  "EMAIL": "your_email@example.com"
-}
-```
-
-### Step 2: Configure Claude Desktop
-
-Add the following to your `claude_desktop_config.json` file:
-
-```json
-{
-  "mcpServers": {
-    "getoutpost-mcp": {
-      "command": "node",
-      "args": ["<path-to-your-repository>/dist/mcp_server_stdio.js"],
-      "env": {
-        "CREDENTIALS_FILE_PATH": "/absolute/path/to/.getoutpost_credentials.json"
-      }
-    }
-  }
-}
-```
-
-Or if installed globally:
-
-```json
-{
-  "mcpServers": {
-    "getoutpost-mcp": {
+    "getoutpost": {
       "command": "getoutpost-mcp-stdio",
       "env": {
         "CREDENTIALS_FILE_PATH": "/absolute/path/to/.getoutpost_credentials.json"
@@ -147,84 +61,161 @@ Or if installed globally:
 }
 ```
 
-**Note:**
-- Replace `/absolute/path/to/.getoutpost_credentials.json` with the absolute path to your credentials file
-- If `CREDENTIALS_FILE_PATH` is not specified, it defaults to `~/.getoutpost_credentials.json`
+## Getting GetOutpost Credentials
 
-### Step 3: Enable MCP Server
+1. **Sign up** at [GetOutpost.in](https://getoutpost.in)
+2. **Log in** and obtain your access token and refresh token from your account settings
+3. **Create a credentials file** at `~/.getoutpost_credentials.json`:
 
-Restart Claude Desktop and enable getoutpost-mcp in your connectors section.
+```json
+{
+  "ACCESS_TOKEN": "your_access_token_here",
+  "REFRESH_TOKEN": "your_refresh_token_here",
+  "API_BASE_URL": "https://getoutpost.in",
+  "EMAIL": "your_email@example.com"
+}
+```
 
+**Note:** The MCP server automatically refreshes your tokens and updates this file when tokens expire.
+
+## Available Tools
+
+The server provides 8 tools that Claude can use:
+
+### Data Retrieval Tools
+
+| Tool | Description |
+|------|-------------|
+| `get_iv` | Get implied volatility data for specific symbols |
+| `get_vol` | Get realized volatility data using various calculation methods |
+| `get_vrp` | Get volatility risk premium (IV minus RV) |
+| `get_skew` | Get volatility skew patterns across strikes |
+
+### Discovery/Filtering Tools
+
+| Tool | Description |
+|------|-------------|
+| `filter_quick_rules_iv_percentile` | Find symbols by IV percentile range |
+| `filter_quick_rules_rv_percentile` | Find symbols by RV percentile range |
+| `filter_quick_rules_vrp_percentile` | Find symbols by VRP percentile range |
+| `filter_quick_rules_skew_percentile` | Find symbols by skew percentile range |
+
+## Available Prompts
+
+Pre-built prompt templates to help you get started:
+
+1. **Find long volatility opportunities** - Discover symbols where buying options makes sense (default: 30 DTE)
+2. **Find cheap OTM puts** - Locate extremely cheap deep out-of-the-money puts for tail hedging (default: 29 DTE)
+3. **Find short volatility opportunities** - Identify symbols for selling options strategies (default: 30 DTE)
+4. **Find optimal short vol conditions** - Advanced filtering for moderately priced IV with healthy RV to avoid mean reversion (default: 25 DTE, ATM)
+
+Access these via the **Prompts** menu in Claude Desktop.
+
+## Example Usage
+
+Once installed, you can ask Claude questions like:
+
+```
+"Find stocks with high volatility risk premium for potential short vol strategies"
+
+"What's the volatility skew pattern for NIFTY with 30 days to expiry?"
+
+"Show me the top 10 stocks with the cheapest deep OTM puts"
+
+"Analyze the implied vs realized volatility for RELIANCE using yang_zhang method"
+```
+
+Or use the pre-built prompts for guided workflows.
+
+## Recommended Claude Setup
+
+For best results:
+
+1. **Create a Claude Project** named "Options Insights"
+2. **Project Description**: "Access real-time options market data and volatility analytics through GetOutpost's financial APIs. Analyze implied volatility, realized volatility, volatility risk premium, and skew across multiple instruments to generate data-driven trading insights."
+3. **Add Custom Instructions**: Copy the content from [`system_prompt.md`](https://github.com/aoutpost2-rgb/mcp-server/blob/main/system_prompt.md) and paste it into your project's custom instructions. This provides Claude with optimal guidance on how to use the tools effectively.
+4. **Use Claude Sonnet 4** for optimal analysis
+5. **Start fresh chats** when switching between different symbols or analysis types to avoid context length issues
+
+## Understanding Key Parameters
+
+- **Moneyness**: `log(Forward/Strike)` - Positive values = OTM puts, 0 = ATM, Negative = OTM calls
+- **Days to Expiry (DTE)**: Calendar days until option expiration
+- **Volatility Types**:
+  - `c2c` - Close-to-Close
+  - `parkinson` - Parkinson's range-based estimator
+  - `garman_klass` - Garman-Klass estimator
+  - `rogers_satchell` - Rogers-Satchell estimator
+  - `yang_zhang` - Yang-Zhang estimator
+  - `mean` - Average of all methods
+- **Lookback Period**: Days of historical data (20, 40, 60, or 80)
 
 ## Token Management
 
-The MCP server automatically manages token refresh. When your access token expires:
-1. The server detects the 401 authentication error
-2. It uses the refresh token from your credentials file to get new tokens
-3. The new tokens are automatically saved back to your credentials file
-4. Your credentials file is always kept up-to-date with the latest tokens
+The server handles authentication automatically:
+1. Detects when your access token expires (401 error)
+2. Uses your refresh token to obtain new credentials
+3. Updates your credentials file with the new tokens
+4. Retries the failed request seamlessly
 
-## Recommended Approach to Usage (Claude)
+You never need to manually refresh tokens.
 
-1. Create a project called `Options Insights`.
-2. Give it's description as `Access real-time options market data and volatility analytics through GetOutpost's financial APIs. Analyze implied volatility, realized volatility, volatility risk premium, and skew across multiple instruments to generate data-driven trading insights.`
-3. Click "+" (next to instructions) to add system prompt. Paste the content of the file `system_prompt.md`. Click Save.
-4. Please use model `Claude Sonnet 4.5`.
-5. Avoid long conversations in a single chat because you run the risk of reaching the context length and might cause the LLM to give faulty answers.
-6. Use new chats (in project `Options Trading`) when you want to start a conversation about a new symbol or a an entirely different topic.
-7. You are good to go, just type out your prompts.
+## Development
 
-## Packaging and Publishing
-
-This section is for developers who want to package and publish the MCP server to npm.
-
-### Building the Package
-
-1. Make sure all changes are committed to git
-2. Update the version in `package.json` if needed
-3. Build the TypeScript code:
-   ```bash
-   npm run build
-   ```
-
-### Testing the Package Locally
-
-Before publishing, test what will be included in the package:
+### Building from Source
 
 ```bash
-npm pack --dry-run
+# Clone the repository
+git clone https://github.com/aoutpost2-rgb/mcp-server.git
+cd mcp-server
+
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Run in development mode
+npm run dev:stdio
 ```
 
-This shows all files that will be included in the npm package.
+### Running Tests
 
-### Publishing to npm
+```bash
+npm test
+```
 
-1. Ensure you're logged in to npm:
-   ```bash
-   npm whoami
-   ```
+### Project Structure
 
-2. Publish the package:
-   ```bash
-   npm publish
-   ```
+```
+├── api/              # API client implementation
+├── auth/             # Authentication and token management
+├── dist/             # Compiled JavaScript (generated)
+├── extension/        # MCP extension bundle
+├── mcp_server.ts     # HTTP server implementation
+├── mcp_server_stdio.ts  # Stdio server implementation
+├── mcp_spec.ts       # MCP protocol handlers and tool definitions
+└── tests/            # Test files
+```
 
-   This will automatically:
-   - Run `npm run build` (via the `prepublishOnly` script)
-   - Package all files specified in the `files` field of `package.json`
-   - Upload to the npm registry
+## Contributing
 
-3. Verify the publication:
-   ```bash
-   npm view getoutpost-mcp-server
-   ```
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Package Configuration
+## License
 
-The package includes both HTTP and stdio server binaries:
-- `getoutpost-mcp-http`: Starts the HTTP server
-- `getoutpost-mcp-stdio`: Starts the stdio server
+MIT License - see [LICENSE](LICENSE) file for details.
 
-Files included in the package are controlled by:
-- `files` field in `package.json` (specifies what to include)
-- `.npmignore` file (specifies what to exclude)
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/aoutpost2-rgb/mcp-server/issues)
+- **GetOutpost Support**: [GetOutpost.in](https://getoutpost.in)
+- **MCP Documentation**: [Model Context Protocol](https://modelcontextprotocol.io)
+
+## Acknowledgments
+
+Built with the [Model Context Protocol SDK](https://github.com/modelcontextprotocol/sdk) by Anthropic.
+
+---
+
+**Disclaimer**: This tool is for informational and educational purposes only. Always conduct your own research and consult with financial advisors before making trading decisions.
