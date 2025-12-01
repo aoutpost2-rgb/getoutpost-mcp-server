@@ -59,7 +59,6 @@ Then configure:
 {
   "ACCESS_TOKEN": "your_access_token_here",
   "REFRESH_TOKEN": "your_refresh_token_here",
-  "API_BASE_URL": "https://getoutpost.in",
   "EMAIL": "your_email@example.com"
 }
 ```

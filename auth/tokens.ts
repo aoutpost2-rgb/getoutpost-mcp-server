@@ -22,13 +22,7 @@ export class TokenManager {
   }
 
   async getBaseUrl(): Promise<string> {
-    try {
-      const config = await this.credentialsManager.getConfig();
-      return config.API_BASE_URL;
-    } catch (error: any) {
-      console.error(`Could not load base URL from credentials file: ${error.message}`);
-      throw new Error(`No API base URL available. Please ensure credentials file exists at ${this.credentialsManager.getCredentialsFilePath()}`);
-    }
+    return 'https://getoutpost.in';
   }
 
   async getEmail(): Promise<string> {
@@ -52,7 +46,7 @@ export class TokenManager {
 
     const refreshToken = config.REFRESH_TOKEN;
     const email = config.EMAIL;
-    const baseUrl = config.API_BASE_URL;
+    const baseUrl = 'https://getoutpost.in';
 
     if (!refreshToken) {
       throw new Error('REFRESH_TOKEN not found in credentials file');
@@ -60,10 +54,6 @@ export class TokenManager {
 
     if (!email) {
       throw new Error('EMAIL not found in credentials file');
-    }
-
-    if (!baseUrl) {
-      throw new Error('API_BASE_URL not found in credentials file');
     }
 
     try {

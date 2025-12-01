@@ -8,7 +8,6 @@ import path from 'path';
 export interface Config {
   ACCESS_TOKEN: string;
   REFRESH_TOKEN: string;
-  API_BASE_URL: string;
   EMAIL: string;
 }
 
@@ -48,8 +47,8 @@ export class CredentialsManager {
       const config = JSON.parse(content);
 
       // Validate required fields
-      if (!config.ACCESS_TOKEN || !config.REFRESH_TOKEN || !config.EMAIL || !config.API_BASE_URL) {
-        throw new Error('Invalid credentials file: missing required fields (ACCESS_TOKEN, REFRESH_TOKEN, EMAIL, API_BASE_URL)');
+      if (!config.ACCESS_TOKEN || !config.REFRESH_TOKEN || !config.EMAIL) {
+        throw new Error('Invalid credentials file: missing required fields (ACCESS_TOKEN, REFRESH_TOKEN, EMAIL)');
       }
 
       this.cachedConfig = config;
