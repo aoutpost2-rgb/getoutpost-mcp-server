@@ -133,7 +133,7 @@ For best results:
 
 1. **Create a Claude Project** named "Options Insights"
 2. **Project Description**: "Access real-time options market data and volatility analytics through GetOutpost's financial APIs. Analyze implied volatility, realized volatility, volatility risk premium, and skew across multiple instruments to generate data-driven trading insights."
-3. **Add Custom Instructions**: Copy the content from [`system_prompt.md`](https://gitlab.com/getoutpost.in/getoutpost-mcp-server/-/blob/main/system_prompt.md) and paste it into your project's custom instructions. This provides Claude with optimal guidance on how to use the tools effectively.
+3. **Add Custom Instructions**: Copy the content from [`system_prompt.md`](./system_prompt.md) and paste it into your project's custom instructions. This provides Claude with optimal guidance on how to use the tools effectively.
 4. **Use Claude Sonnet 4** for optimal analysis
 5. **Start fresh chats** when switching between different symbols or analysis types to avoid context length issues
 
