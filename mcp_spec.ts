@@ -27,18 +27,24 @@ export class ToolDefinition implements ToolDefinitionInterface {
   name: string;
   description: string;
   inputSchema: ToolInputSchema;
+  readOnlyHint?: boolean;
+  destructiveHint?: boolean;
 
-  constructor(name: string, description: string, inputSchema: ToolInputSchema) {
+  constructor(name: string, description: string, inputSchema: ToolInputSchema, readOnlyHint?: boolean, destructiveHint?: boolean) {
     this.name = name;
     this.description = description;
     this.inputSchema = inputSchema;
+    this.readOnlyHint = readOnlyHint;
+    this.destructiveHint = destructiveHint;
   }
 
   toJSON(): any {
     return {
       name: this.name,
       description: this.description,
-      inputSchema: this.inputSchema  // ✅ FIXED: Changed from input_schema
+      inputSchema: this.inputSchema,
+      ...(this.readOnlyHint !== undefined && { readOnlyHint: this.readOnlyHint }),
+      ...(this.destructiveHint !== undefined && { destructiveHint: this.destructiveHint })
     };
   }
 }
@@ -77,7 +83,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "get_vol",
@@ -92,7 +99,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["symbols"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "get_vrp",
@@ -126,7 +134,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "get_skew",
@@ -160,7 +169,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["symbols", "moneyness", "daysToExpiry", "realizedVolatility", "lookbackPeriod"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "filter_quick_rules_skew_percentile",
@@ -184,7 +194,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["moneyness", "daysToExpiry", "percentile"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "filter_quick_rules_vrp_percentile",
@@ -218,7 +229,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["moneyness", "daysToExpiry", "volatilityType", "lookbackPeriod", "percentile"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "filter_quick_rules_rv_percentile",
@@ -243,7 +255,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["volatilityType", "lookbackPeriod", "percentile"]
-    }
+    },
+    true
   ),
   new ToolDefinition(
     "filter_quick_rules_iv_percentile",
@@ -267,7 +280,8 @@ export const MCP_TOOLS = [
         }
       },
       required: ["moneyness", "daysToExpiry", "percentile"]
-    }
+    },
+    true
   )
 ];
 
