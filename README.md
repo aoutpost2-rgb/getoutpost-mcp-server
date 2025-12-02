@@ -18,7 +18,11 @@ Perfect for quantitative analysis, options trading research, and data-driven tra
 
 ## Installation
 
-### Option 1: Claude Desktop Extension Marketplace (Recommended)
+### Option 1: Claude Desktop Extension Marketplace (Coming Soon)
+
+**Status:** Submitted and under review by Anthropic
+
+Once approved, you'll be able to install directly from the marketplace:
 
 1. Open **Claude Desktop**
 2. Go to **Settings** → **Extensions**
@@ -26,9 +30,19 @@ Perfect for quantitative analysis, options trading research, and data-driven tra
 4. Click **Install**
 5. Configure your credentials file path when prompted
 
-### Option 2: Manual Installation
+### Option 2: Direct Download (.mcpb file)
 
-Install globally:
+**Available Now!** Download and install the extension bundle directly:
+
+1. **Download** the latest release: [getoutpost-mcp-server-v1.0.0.mcpb](releases/getoutpost-mcp-server-v1.0.0.mcpb)
+2. **Double-click** the downloaded `.mcpb` file, or
+3. **Drag and drop** it into Claude Desktop, or
+4. In Claude Desktop, go to **Settings** → **Extensions** → **Install Extension** and select the file
+5. **Configure** your credentials file path when prompted
+
+### Option 3: NPM Global Installation
+
+Install globally via npm:
 
 ```bash
 npm install -g getoutpost-mcp-server
