@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node Version](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen)](https://nodejs.org)
 
-A Model Context Protocol (MCP) server that brings real-time Indian options market data and volatility analytics to Claude Desktop. Access comprehensive financial data from [GetOutpost.in](https://getoutpost.in) directly within your AI conversations.
+A Model Context Protocol (MCP) server that brings real-time Indian options market data and volatility analytics from [GetOutpost.in](https://getoutpost.in) into your AI chats.
 
 ## What is this?
 
