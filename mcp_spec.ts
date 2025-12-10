@@ -63,8 +63,8 @@ export const MCP_TOOLS = [
           description: "Ticker symbols (e.g., ['NIFTY', 'BPCL'])"
         },
         moneyness: {
-          type: "number",
-          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
           description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
@@ -114,8 +114,8 @@ export const MCP_TOOLS = [
           description: "Ticker symbols (e.g., ['AAPL', 'MSFT'])"
         },
         moneyness: {
-          type: "number",
-          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
           description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
@@ -149,8 +149,8 @@ export const MCP_TOOLS = [
           description: "Ticker symbols (e.g., ['AAPL', 'MSFT'])"
         },
         moneyness: {
-          type: "number",
-          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
           description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
@@ -179,8 +179,8 @@ export const MCP_TOOLS = [
       type: "object",
       properties: {
         moneyness: {
-          type: "number",
-          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
           description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
@@ -204,8 +204,8 @@ export const MCP_TOOLS = [
       type: "object",
       properties: {
         moneyness: {
-          type: "number",
-          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
           description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
@@ -265,8 +265,8 @@ export const MCP_TOOLS = [
       type: "object",
       properties: {
         moneyness: {
-          type: "number",
-          enum: [0.1, 0.05, 0.02, 0.01, 0, -0.01, -0.02, -0.05, -0.1],
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
           description: "log(Forward/Strike): positive=OTM put, 0=ATM, negative=OTM call"
         },
         daysToExpiry: {
@@ -280,6 +280,111 @@ export const MCP_TOOLS = [
         }
       },
       required: ["moneyness", "daysToExpiry", "percentile"]
+    },
+    true
+  ),
+  new ToolDefinition(
+    "scan_short_vol_atm_straddles",
+    "Scan for short volatility opportunities using At-the-Money (ATM) straddles. This scanner identifies symbols whose volatility metrics are elevated when compared with itself (historical percentiles) and when compared with other symbols (peer comparison). If no symbols are specified, all symbols are used for the analysis. The response contains symbols in descending order of IV-RV.",
+    {
+      type: "object",
+      properties: {
+        symbols: {
+          type: "array",
+          items: { type: "string" },
+          description: "Optional ticker symbols to scan (e.g., ['NIFTY', 'BANKNIFTY']). If not provided, scans all available symbols."
+        },
+        moneyness: {
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
+          description: "log(Forward/Strike): 0=ATM (typical for straddles), positive=OTM put, negative=OTM call"
+        },
+        daysToExpiry: {
+          type: "integer",
+          description: "Calendar days until option expiry (positive integer, e.g., 30)"
+        },
+        lookbackPeriod: {
+          type: "number",
+          enum: [20, 40, 60, 80],
+          description: "Lookback period in days for historical comparison"
+        },
+        volatilityType: {
+          type: "string",
+          enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
+          description: "Realized volatility calculation method for comparison"
+        }
+      },
+      required: ["moneyness", "daysToExpiry", "lookbackPeriod", "volatilityType"]
+    },
+    true
+  ),
+  new ToolDefinition(
+    "scan_cheap_tail_risk_hedges",
+    "Scan for cheap tail risk hedges—inexpensive far out-of-the-money put options that provide protection against extreme market moves. This scanner identifies options that are relatively low-cost when compared with itself (historical percentiles) and when compared with other symbols (peer comparison). Default moneyness is 10% OTM Put (0.1). If no symbols are specified, all symbols are used for the analysis. The response contains symbols in ascending order of IV Percentile.",
+    {
+      type: "object",
+      properties: {
+        symbols: {
+          type: "array",
+          items: { type: "string" },
+          description: "Optional ticker symbols to scan (e.g., ['NIFTY', 'BANKNIFTY']). If not provided, scans all available symbols."
+        },
+        moneyness: {
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
+          description: "log(Forward/Strike): positive=OTM put (downside protection), negative=OTM call (upside hedge)"
+        },
+        daysToExpiry: {
+          type: "integer",
+          description: "Calendar days until option expiry (positive integer, e.g., 30)"
+        },
+        lookbackPeriod: {
+          type: "number",
+          enum: [20, 40, 60, 80],
+          description: "Lookback period in days for historical price comparison"
+        },
+        volatilityType: {
+          type: "string",
+          enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
+          description: "Realized volatility calculation method"
+        }
+      },
+      required: ["moneyness", "daysToExpiry", "lookbackPeriod", "volatilityType"]
+    },
+    true
+  ),
+  new ToolDefinition(
+    "scan_directional_trades_naked_options",
+    "Scan for directional trading opportunities using naked options—buying calls for bullish views or puts for bearish views without hedging. This scanner identifies options that are relatively low-cost when compared with itself (historical percentiles) and when compared with other symbols (peer comparison). Default moneyness is 1% OTM Call (-0.01). If no symbols are specified, all symbols are used for the analysis. The response contains symbols in ascending order of IV Percentile.",
+    {
+      type: "object",
+      properties: {
+        symbols: {
+          type: "array",
+          items: { type: "string" },
+          description: "Optional ticker symbols to scan (e.g., ['NIFTY', 'BANKNIFTY']). If not provided, scans all available symbols."
+        },
+        moneyness: {
+          type: "string",
+          enum: ["0.1", "0.05", "0.02", "0.01", "0", "-0.01", "-0.02", "-0.05", "-0.1"],
+          description: "log(Forward/Strike): positive=OTM put (bearish), 0=ATM, negative=OTM call (bullish)"
+        },
+        daysToExpiry: {
+          type: "integer",
+          description: "Calendar days until option expiry (positive integer, e.g., 30)"
+        },
+        lookbackPeriod: {
+          type: "number",
+          enum: [20, 40, 60, 80],
+          description: "Lookback period in days for historical analysis"
+        },
+        volatilityType: {
+          type: "string",
+          enum: ["c2c", "parkinson", "garman_klass", "rogers_satchell", "yang_zhang", "mean"],
+          description: "Realized volatility calculation method"
+        }
+      },
+      required: ["moneyness", "daysToExpiry", "lookbackPeriod", "volatilityType"]
     },
     true
   )
@@ -338,6 +443,12 @@ export class MCPHandler {
         result = await this.apiManager.rvPercentile(argumentsObj);
       } else if (toolName === "filter_quick_rules_iv_percentile") {
         result = await this.apiManager.ivPercentile(argumentsObj);
+      } else if (toolName === "scan_short_vol_atm_straddles") {
+        result = await this.apiManager.shortVolAtmStraddles(argumentsObj);
+      } else if (toolName === "scan_cheap_tail_risk_hedges") {
+        result = await this.apiManager.cheapTailRiskHedges(argumentsObj);
+      } else if (toolName === "scan_directional_trades_naked_options") {
+        result = await this.apiManager.directionalTradesNakedOptions(argumentsObj);
       } else {
         return {
           error: {

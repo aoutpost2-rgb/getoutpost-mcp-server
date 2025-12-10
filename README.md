@@ -34,7 +34,7 @@ Once approved, you'll be able to install directly from the marketplace:
 
 **Available Now!** Download and install the extension bundle directly:
 
-1. **Download** the latest release: [getoutpost-mcp-server-v1.0.0.mcpb](releases/getoutpost-mcp-server-v1.0.0.mcpb)
+1. **Download** the latest release: [getoutpost-mcp-server-v1.1.0.mcpb](releases/getoutpost-mcp-server-v1.1.0.mcpb)
 2. **Double-click** the downloaded `.mcpb` file, or
 3. **Drag and drop** it into Claude Desktop, or
 4. In Claude Desktop, go to **Settings** → **Extensions** → **Install Extension** and select the file
@@ -81,7 +81,7 @@ Then configure:
 
 ## Available Tools
 
-The server provides 8 tools that Claude can use:
+The server provides 11 tools that Claude can use:
 
 ### Data Retrieval Tools
 
@@ -101,6 +101,14 @@ The server provides 8 tools that Claude can use:
 | `filter_quick_rules_vrp_percentile` | Find symbols by VRP percentile range |
 | `filter_quick_rules_skew_percentile` | Find symbols by skew percentile range |
 
+### Opportunity Scanner Tools
+
+| Tool | Description |
+|------|-------------|
+| `scan_short_vol_atm_straddles` | Scan for short volatility opportunities using ATM straddles (elevated IV vs historical/peers) |
+| `scan_cheap_tail_risk_hedges` | Scan for cheap tail risk hedges - far OTM puts for portfolio protection |
+| `scan_directional_trades_naked_options` | Scan for directional trading opportunities using naked calls or puts |
+
 ## Available Prompts
 
 Pre-built prompt templates to help you get started:
@@ -109,6 +117,9 @@ Pre-built prompt templates to help you get started:
 2. **Find cheap OTM puts** - Locate extremely cheap deep out-of-the-money puts for tail hedging (default: 29 DTE)
 3. **Find short volatility opportunities** - Identify symbols for selling options strategies (default: 30 DTE)
 4. **Find optimal short vol conditions** - Advanced filtering for moderately priced IV with healthy RV to avoid mean reversion (default: 25 DTE, ATM)
+5. **Find cheap directional trades** - Scan for cheap directional trade opportunities using naked options
+6. **Find top short vol straddles** - Identify the best short volatility opportunities using ATM straddles
+7. **Find cheap hedges** - Discover cheap tail risk hedges currently available for portfolio protection
 
 Access these via the **Prompts** menu in Claude Desktop.
 
@@ -124,6 +135,12 @@ Once installed, you can ask Claude questions like:
 "Show me the top 10 stocks with the cheapest deep OTM puts"
 
 "Analyze the implied vs realized volatility for RELIANCE using yang_zhang method"
+
+"Are there any cheap directional trade opportunities available?"
+
+"Give me the top short volatility opportunities right now"
+
+"What are some cheap hedges that are currently available?"
 ```
 
 Or use the pre-built prompts for guided workflows.

@@ -93,4 +93,16 @@ export class APIManager {
   async ivPercentile(params: APIRequest): Promise<any> {
     return this.makeRequest('/__api__/filters/quick-rules/iv-percentile', params);
   }
+
+  async shortVolAtmStraddles(params: APIRequest): Promise<any> {
+    return this.makeRequest('/__api__/opportunity-scanner/short-vol-atm-straddles', params);
+  }
+
+  async cheapTailRiskHedges(params: APIRequest): Promise<any> {
+    return this.makeRequest('/__api__/opportunity-scanner/cheap-tail-risk-hedges', params);
+  }
+
+  async directionalTradesNakedOptions(params: APIRequest): Promise<any> {
+    return this.makeRequest('/__api__/opportunity-scanner/directional-trades-naked-options', params);
+  }
 }
