@@ -145,14 +145,16 @@ Once installed, you can ask Claude questions like:
 
 Or use the pre-built prompts for guided workflows.
 
-## Recommended Claude Setup
+## Recommended Setup
 
 For best results:
 
-1. **Create a Claude Project** named "Options Insights"
+1. **Create a Project** named "Options Insights"
 2. **Project Description**: "Access real-time options market data and volatility analytics through GetOutpost's financial APIs. Analyze implied volatility, realized volatility, volatility risk premium, and skew across multiple instruments to generate data-driven trading insights."
-3. **Add Custom Instructions**: Copy the content from [`system_prompt.md`](./system_prompt.md) and paste it into your project's custom instructions. This provides Claude with optimal guidance on how to use the tools effectively.
-4. **Use Claude Sonnet 4** for optimal analysis
+3. **Add Custom Instructions**: Choose the appropriate system prompt for your AI assistant:
+   - **For Claude**: Copy content from [`system_prompt_claude.md`](./system_prompt_claude.md) (comprehensive version)
+   - **For Perplexity**: Copy content from [`system_prompt_perplexity.md`](./system_prompt_perplexity.md) (condensed, <1500 chars)
+4. **Use Claude Sonnet 4** (or equivalent) for optimal analysis
 5. **Start fresh chats** when switching between different symbols or analysis types to avoid context length issues
 
 ## Understanding Key Parameters
