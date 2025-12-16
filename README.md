@@ -34,7 +34,7 @@ Once approved, you'll be able to install directly from the marketplace:
 
 **Available Now!** Download and install the extension bundle directly:
 
-1. **Download** the latest release: [getoutpost-mcp-server-v1.1.0.mcpb](releases/getoutpost-mcp-server-v1.1.0.mcpb)
+1. **Download** the latest release: [getoutpost-mcp-server-v1.1.0.mcpb](releases/getoutpost-mcp-server-v1.1.1.mcpb)
 2. **Double-click** the downloaded `.mcpb` file, or
 3. **Drag and drop** it into Claude Desktop, or
 4. In Claude Desktop, go to **Settings** → **Extensions** → **Install Extension** and select the file

@@ -1,6 +1,6 @@
 {
   "name": "getoutpost-mcp-server",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "HTTP MCP Server for GetOutpost Financial APIs - provides stock data, options chains, and volatility surface analysis",
   "main": "dist/mcp_server.js",
   "bin": {
@@ -38,7 +38,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "jose": "^5.1.0"
+    "jose": "^5.1.0",
+    "npm": "^11.7.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

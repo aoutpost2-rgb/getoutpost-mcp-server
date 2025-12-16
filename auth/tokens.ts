@@ -22,7 +22,7 @@ export class TokenManager {
   }
 
   async getBaseUrl(): Promise<string> {
-    return 'https://getoutpost.in';
+    return 'https://app.getoutpost.in';
   }
 
   async getEmail(): Promise<string> {
