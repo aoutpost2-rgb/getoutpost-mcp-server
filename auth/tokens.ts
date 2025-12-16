@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CredentialsManager } from './credentials';
 
 export class TokenManager {
+  private baseUrl: string = 'https://app.getoutpost.in';
   private credentialsManager: CredentialsManager;
 
   constructor() {
@@ -22,7 +23,7 @@ export class TokenManager {
   }
 
   async getBaseUrl(): Promise<string> {
-    return 'https://app.getoutpost.in';
+    return this.baseUrl;
   }
 
   async getEmail(): Promise<string> {
@@ -46,7 +47,6 @@ export class TokenManager {
 
     const refreshToken = config.REFRESH_TOKEN;
     const email = config.EMAIL;
-    const baseUrl = 'https://getoutpost.in';
 
     if (!refreshToken) {
       throw new Error('REFRESH_TOKEN not found in credentials file');
@@ -58,7 +58,7 @@ export class TokenManager {
 
     try {
       const response = await axios.post(
-        `${baseUrl}/__api__/auth/refresh`,
+        `${this.baseUrl}/__api__/auth/refresh`,
         { email },
         {
           headers: {
